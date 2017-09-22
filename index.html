@@ -1,44 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style type="text/css" rel="stylesheet">
-        td{border:1px solid #333}
-        .alert{
-            position:absolute;
-            top: 25px;
-            left:0;
-            display: none;
-            width: 200px;
-            height:80px;
-            background:blue;
-            border:1px solid #333;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>missdong.studio</title>
+    <link rel="stylesheet" type="text/css" href="missdong/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="missdong/css/index.css"/>
+    <script type="text/javascript" src="missdong/js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<table>
-    <tr>
-        <td width="100px">aaa</td>
-        <td width="100px" style="position:relative">sss
-            <div class="alert">我是弹框我是弹框我是弹框我是弹框</div>
-        </td>
-        <td width="100px">ddd</td>
-    <tr>
-    <tr>
-        <td>aaa</td>
-        <td style="position:relative">sss
-            <div class="alert">我是弹框我是弹框我是弹框我是弹框</div>
-        <td>ddd</td>
-    <tr>
-</table>
-<script src="jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
-    window.onload=function(){
-        $('tr td:nth-child(2)').mouseover(function(){
-            $(this).find('.alert').show();
-        }).mouseout(function(){
-            $(this).find('.alert').hide();
-        })
-    }
-</script>
+
 </body>
 </html>
