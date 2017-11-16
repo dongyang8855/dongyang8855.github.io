@@ -1,0 +1,21 @@
+{
+  "name": "dongyang8855.github.io",
+  "version": "1.0.0",
+  "description": "used to learn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dongyang8855/dongyang8855.github.io.git"
+  },
+  "author": "cloris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dongyang8855/dongyang8855.github.io/issues"
+  },
+  "homepage": "https://github.com/dongyang8855/dongyang8855.github.io#readme",
+  "devDependencies": {
+  }
+}
