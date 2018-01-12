@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="./missdong/js/vue.js"></script>
+    <script src="./missdong/js/vue-router.js"></script>
+    <!--<script src="./missdong/js/app.js"></script>-->
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>Hello App!</h1>
+
+</div>
+<script>
+    const NotFound = { template: '<p>Page not found</p>' }
+    const Home = { template: '<p>home page</p>' }
+    const About = { template: '<p>about page</p>' }
+
+    const routes = {
+        '/dongyang8855.github.io/index.html': About,
+        '/about': About
+    }
+
+    new Vue({
+        el: '#app',
+        data: {
+            currentRoute: window.location.pathname
+        },
+        computed: {
+            ViewComponent () {
+                return routes[this.currentRoute] || NotFound
+            }
+        },
+        render (h) { return h(this.ViewComponent) }
+    })
+
+</script>
+</body>
+</html>

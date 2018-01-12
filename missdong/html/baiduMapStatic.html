@@ -6,7 +6,7 @@
     <style type="text/css">
         #allmap {width: 600px;height: 400px;font-family:"微软雅黑";}
     </style>
-    <script src="http://api.map.baidu.com/api?v=20&ak=DD279b2a90afdf0ae7a3796787a0742e" type="text/javascript"></script>
+    <script src="http://api.map.baidu.com/api?v=20&ak=OeoBdHkfXpuhLUF6he68YyFK" type="text/javascript"></script>
     <title>baidu地图</title>
 </head>
 <body>
@@ -21,8 +21,8 @@
 
     var marker = new BMap.Marker(point);// 创建标注
     map.addOverlay(marker);
-//    marker.enableDragging();
-    marker.disableDragging();  // 标记不可拖动
+    marker.enableDragging();
+//    marker.disableDragging();  // 标记不可拖动
 
     //添加地图类型控件
     map.addControl(new BMap.MapTypeControl({

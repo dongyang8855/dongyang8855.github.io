@@ -4,7 +4,9 @@
   "description": "used to learn",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "server": "webpack-dev-server --open"
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,7 @@
   },
   "homepage": "https://github.com/dongyang8855/dongyang8855.github.io#readme",
   "devDependencies": {
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.10.1"
   }
 }
