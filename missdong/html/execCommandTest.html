@@ -1,0 +1,49 @@
+<!--
+1.只有对应的表单区域能够被复制
+2.在一些浏览器中无效（没错，就是Safari），但可以在选中文本后提示用户使用快捷键 Ctrl/Cmd + C
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"></meta>
+    <title>复制剪贴板</title>
+</head>
+<body>
+<input type="text" id="website" value="http://www.sitepoint.com/" />
+<button data-copytarget="#website">copy</button>
+<script>
+    (function(){
+
+        function copy(e){
+            var t = e.target,
+                c = t.dataset.copytarget,
+                inp = (c ? document.querySelector(c) : null);
+            if(inp && inp.select){
+                inp.select();
+                try{
+                    if(document.execCommand('copy', false, null)){
+                        //success info
+                        inp.blur();
+                        alert('复制成功')
+                    } else{
+                        //fail info
+                        alert('复制失败')
+                    }
+                }catch(err){
+                    alert('please press Ctrl/Cmd+C to copy');
+                }
+            }
+        }
+        document.body.addEventListener('click',function(ee){
+            setTimeout((function(ee){
+                return function(){
+                    copy(ee);
+                }
+            })(ee),2000);
+//            copy(ee);
+        },true);
+    })()
+</script>
+</body>
+</html>
