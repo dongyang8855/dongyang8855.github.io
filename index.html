@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+</head>
+<body>
+<input type="file" onchange="jsReadFiles(this.files)"/>
+<input type="button" id="download" value="下载"/>
+<div id="result"}></div>
+<script>
+	//js 读取文件
+	function jsReadFiles(files) {
+		if (files.length) {
+			var file = files[0];
+			var reader = new FileReader();//new一个FileReader实例
+			reader.onload = function() {
+				var result = document.getElementById('result');
+
+				var resultText = this.result.replace(/<\!--.*-->/g,'');
+				resultText = resultText.replace(/\/\*[\s\S]+?\*\//g,''); //匹配多行注释
+				resultText = resultText.replace(/\/\/.*/g,''); // 匹配单行注释
+                resultText = resultText.replace(/[^\u2E80-\u9FFF]+/g,'<br>');
+
+				result.innerHTML += file.name+'<br>'+resultText+'<br>';
+
+				document.getElementById('download').onclick = function(){
+	                funDownload(result.innerHTML.replace(/<br>/g,'\n'),file.name.split('.')[0]+'.txt')
+                }
+			};
+			reader.readAsText(file);
+		}
+	}
+	var funDownload = function (content, filename) {
+		// 创建隐藏的可下载链接
+		var eleLink = document.createElement('a');
+		eleLink.download = filename;
+		eleLink.style.display = 'none';
+		// 字符内容转变成blob地址
+		var blob = new Blob([content]);
+		eleLink.href = URL.createObjectURL(blob);
+		// 触发点击
+		document.body.appendChild(eleLink);
+		eleLink.click();
+		// 然后移除
+		document.body.removeChild(eleLink);
+	};
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/jquery.md5.js"></script>
+    <script type="text/javascript">
+		var param = '{"phone":"3277628977","prefixPhoneNum":"0039","isNewUser":2,"timestamp":"1521704810","nonce":"xPcFMQkb8FnKNnk6S2ixsjhT8t25CnD7","sign":"e6d28e2ac735e9a2daea8a7419f98ba9"}';
+		var systemParam = '{"deviceType":"web_pc","model":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36","version":"1.0","timestamps":"1521704810037","apiVersion":"2.1"}';
+		var paramObj = param ? JSON.parse(param) : {};
+		systemParam = systemParam ? JSON.parse(systemParam) : {};
+		var result = $.extend({}, paramObj, systemParam);
+		var keys = Object.keys(result).sort();
+		var tokenSignArray = [];
+		for (var i in keys) {
+			if (typeof result[keys[i]] == 'object') {
+				result[keys[i]] = JSON.stringify(result[keys[i]]);
+			}
+//			tokenSignArray.push(keys[i] + '=' + urlencode(emoji2Str(result[keys[i]])))
+			tokenSignArray.push(keys[i] + '=' + result[keys[i]])
+		}
+		var stringToBeSigned = tokenSignArray.join('&') + 'FC83CDBAEFB714B650FA56852AF1CD67';
+		var tokenSign = $.md5(stringToBeSigned).toUpperCase();
+
+		// 生成tokenSign
+		/*var kARB1 = param ? JSON["\x70\x61\x72\x73\x65"](param) : {};
+		var LzKI2 = $["\x65\x78\x74\x65\x6e\x64"]({}, kARB1, systemParam);
+		var P3 = window["\x4f\x62\x6a\x65\x63\x74"]["\x6b\x65\x79\x73"](LzKI2)["\x73\x6f\x72\x74"]();
+		var zj4 = [];
+		for (var urlNcXmc5 in P3) {
+			if (typeof LzKI2[P3[urlNcXmc5]] == '\x6f\x62\x6a\x65\x63\x74') {
+				LzKI2[P3[urlNcXmc5]] = JSON["\x73\x74\x72\x69\x6e\x67\x69\x66\x79"](LzKI2[P3[urlNcXmc5]]);
+			}
+			zj4["\x70\x75\x73\x68"](P3[urlNcXmc5] + '\x3d' + urlencode(emoji2Str(LzKI2[P3[urlNcXmc5]])))
+		}
+		var z7 = zj4["\x6a\x6f\x69\x6e"]('\x26') + '\x46\x43\x38\x33\x43\x44\x42\x41\x45\x46\x42\x37\x31\x34\x42\x36\x35\x30\x46\x41\x35\x36\x38\x35\x32\x41\x46\x31\x43\x44\x36\x37';
+		var jOUjRD8 = $["\x6d\x64\x35"](z7)["\x74\x6f\x55\x70\x70\x65\x72\x43\x61\x73\x65"]();
+		kARB1["\x74\x6f\x6b\x65\x6e\x53\x69\x67\x6e"] = jOUjRD8;
+		param = JSON["\x73\x74\x72\x69\x6e\x67\x69\x66\x79"](kARB1);*/
+
+
+		console.log(paramObj);
+		console.log(systemParam);
+		console.log(result);
+		console.log(tokenSignArray);
+		console.log(stringToBeSigned);
+		document.write(tokenSign);
+//		console.log(param);
+
+		function urlencode(clearString) {
+			var output = '';
+			var x = 0;
+
+			clearString = utf16to8(clearString.toString());
+			var regex = /(^[a-zA-Z0-9-_.]*)/;
+
+			while (x < clearString.length) {
+				var match = regex.exec(clearString.substr(x));
+				if (match != null && match.length > 1 && match[1] != '') {
+					output += match[1];
+					x += match[1].length;
+				}
+				else {
+					if (clearString[x] == ' ')
+						output += '+';
+					else {
+						var charCode = clearString.charCodeAt(x);
+						var hexVal = charCode.toString(16);
+						output += '%' + ( hexVal.length < 2 ? '0' : '' ) + hexVal.toUpperCase();
+					}
+					x++;
+				}
+			}
+
+			function utf16to8(str) {
+				var out, i, len, c;
+
+				out = "";
+				len = str.length;
+				for (i = 0; i < len; i++) {
+					c = str.charCodeAt(i);
+					if ((c >= 0x0001) && (c <= 0x007F)) {
+						out += str.charAt(i);
+					}
+					else if (c > 0x07FF) {
+						out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+						out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+					}
+					else {
+						out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+						out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+					}
+				}
+				return out;
+			}
+
+			return output;
+		}
+
+		/*emoji表情转unicode*/
+		function emoji2Str(str) {
+			return unescape(escape(str).replace(/\%u[eD][0-9A-F]{3}\%u[eD][0-9A-F]{3}/g, ''));
+		}
+    </script>
+</head>
+<body>
+
+</body>
+</html>
