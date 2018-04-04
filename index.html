@@ -17,7 +17,7 @@
 			reader.onload = function() {
 				var result = document.getElementById('result');
 
-				var resultText = this.result.replace(/<\!--.*-->/g,'');
+				var resultText = this.result.replace(/<\!--[\s\S]+?-->/g,'');
 				resultText = resultText.replace(/\/\*[\s\S]+?\*\//g,''); //匹配多行注释
 				resultText = resultText.replace(/\/\/.*/g,''); // 匹配单行注释
                 resultText = resultText.replace(/[^\u2E80-\u9FFF]+/g,'<br>');
