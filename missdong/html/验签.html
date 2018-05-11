@@ -6,9 +6,10 @@
     <script src="../js/jquery-1.11.3.min.js"></script>
     <script src="../js/jquery.md5.js"></script>
     <script type="text/javascript">
-		var param = '{"phone":"3277628977","prefixPhoneNum":"0039","isNewUser":2,"timestamp":"1521704810","nonce":"xPcFMQkb8FnKNnk6S2ixsjhT8t25CnD7","sign":"e6d28e2ac735e9a2daea8a7419f98ba9"}';
-		var systemParam = '{"deviceType":"web_pc","model":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36","version":"1.0","timestamps":"1521704810037","apiVersion":"2.1"}';
-		var paramObj = param ? JSON.parse(param) : {};
+		var param = '';
+		var systemParam = '{"screenWidth":360,"pixelRatio":3,"system":"Android 5.1.1","benchmarkLevel":16,"windowWidth":360,"brand":"vivo","screenHeight":640,"version":"2.1.0","fontSizeSetting":26,"language":"zh_CN","windowHeight":514,"model":"vivo X7","platform":"android","SDKVersion":"2.0.4","source":"default","deviceType":"weixin","timestamps":"1525183510372","apiVersion":"2.1"}';
+//		var paramObj = param ? JSON.parse(param) : {};
+		var paramObj = {"phone":undefined};
 		systemParam = systemParam ? JSON.parse(systemParam) : {};
 		var result = $.extend({}, paramObj, systemParam);
 		var keys = Object.keys(result).sort();
@@ -17,8 +18,8 @@
 			if (typeof result[keys[i]] == 'object') {
 				result[keys[i]] = JSON.stringify(result[keys[i]]);
 			}
-//			tokenSignArray.push(keys[i] + '=' + urlencode(emoji2Str(result[keys[i]])))
-			tokenSignArray.push(keys[i] + '=' + result[keys[i]])
+			tokenSignArray.push(keys[i] + '=' + urlencode(result[keys[i]]))
+//			tokenSignArray.push(keys[i] + '=' + result[keys[i]])
 		}
 		var stringToBeSigned = tokenSignArray.join('&') + 'FC83CDBAEFB714B650FA56852AF1CD67';
 		var tokenSign = $.md5(stringToBeSigned).toUpperCase();
@@ -40,12 +41,13 @@
 		param = JSON["\x73\x74\x72\x69\x6e\x67\x69\x66\x79"](kARB1);*/
 
 
+		console.log(param);
 		console.log(paramObj);
 		console.log(systemParam);
 		console.log(result);
 		console.log(tokenSignArray);
 		console.log(stringToBeSigned);
-		document.write(tokenSign);
+		console.log(tokenSign);
 //		console.log(param);
 
 		function urlencode(clearString) {
@@ -101,7 +103,7 @@
 
 		/*emoji表情转unicode*/
 		function emoji2Str(str) {
-			return unescape(escape(str).replace(/\%u[eD][0-9A-F]{3}\%u[eD][0-9A-F]{3}/g, ''));
+			return unescape(escape(str).replace(/\%u[ED][0-9A-F]{3}\%u[ED][0-9A-F]{3}/g, ''));
 		}
     </script>
 </head>
