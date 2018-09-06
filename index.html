@@ -12,20 +12,24 @@
 	//js 读取文件
 	function jsReadFiles(files) {
 		if (files.length) {
+			var result = document.getElementById('result');
+			var myText = '';
 			for(let i = 0; i<files.length; i++){
 				let reader = new FileReader();//new一个FileReader实例
 				reader.onload = function() {
-					var result = document.getElementById('result');
 
 					var resultText = this.result.replace(/<\!--[\s\S]+?-->/g,'');
 					resultText = resultText.replace(/\/\*[\s\S]+?\*\//g,''); //匹配多行注释
 					resultText = resultText.replace(/\/\/.*/g,''); // 匹配单行注释
-					resultText = resultText.replace(/[^\u2E80-\u9FFF]+/g,'<br>');
+//					resultText = resultText.replace(/[^\u2E80-\u9FFF]+/g,'<br>');
 
-					result.innerHTML += files[i].name+'<br>'+resultText+'<br>';
+					myText = '===================='+files[i].name+'======================'+resultText;
+					var textNode = document.createTextNode(myText);
+					result.appendChild(textNode);
 				};
 				reader.readAsText(files[i]);
             }
+
 			document.getElementById('download').onclick = function(){
 				funDownload(result.innerHTML.replace(/<br>/g,'\n'),files[0].name.split('.')[0]+'.txt')
 			}
