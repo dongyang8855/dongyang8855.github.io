@@ -5,25 +5,37 @@
     <meta charset="utf-8">
 </head>
 <body>
-<p>提取除注释外的中文</p>
-<input type="file" multiple="multiple" onchange="jsReadFiles(this.files)"/>
+<p>过滤掉文件二中文件一已存在的词</p>
+文件一<input type="file" multiple="multiple" onchange="jsReadFiles1(this.files)"/>
+文件二<input type="file" multiple="multiple" onchange="jsReadFiles2(this.files)"/>
 <input type="button" id="download" value="下载"/>
 <div id="result"></div>
 <script>
-	//提取有效中文
-	function jsReadFiles(files) {
-		if (files.length) {
+    var file1Str = '\n';
+	function jsReadFiles1(files) {
+		if (files.length==1) {
 			for(let i = 0; i<files.length; i++){
 				let reader = new FileReader();//new一个FileReader实例
 				reader.onload = function() {
-					var result = document.getElementById('result');
+					file1Str += this.result+'\n';
+				};
+				reader.readAsText(files[i]);
+            }
+		}
+	}
+	function jsReadFiles2(files) {
+		var result = document.getElementById('result');
+		if (files.length==1) {
+			for(let i = 0; i<files.length; i++){
+				let reader = new FileReader();//new一个FileReader实例
+				reader.onload = function() {
 
-					var resultText = this.result.replace(/<\!--[\s\S]+?-->/g,'');
-					resultText = resultText.replace(/\/\*[\s\S]+?\*\//g,''); //匹配多行注释
-					resultText = resultText.replace(/\/\/.*/g,''); // 匹配单行注释
-					resultText = resultText.replace(/[^\u2E80-\u9FFF]+/g,'<br>');
-
-					result.innerHTML += '===================='+files[i].name+'===================='+'<br>'+resultText+'<br>';
+					var resultArray = this.result.split(/\n/); 
+					for(var i in resultArray){
+						if(file1Str.indexOf(resultArray[i]) == -1){
+							result.innerHTML += resultArray[i]+'<br/>';
+                        }
+                    }
 				};
 				reader.readAsText(files[i]);
             }
