@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+</head>
+<body>
+<p>提取被 <{getLanguage key='$1'}>括起来的中文</p>
+<input type="file" multiple="multiple" onchange="jsReadFiles(this.files)"/>
+<input type="button" id="download" value="下载"/>
+<div id="result"></div>
+<script>
+	//提取有效中文
+	function jsReadFiles(files) {
+		if (files.length) {
+			for(let i = 0; i<files.length; i++){
+				let reader = new FileReader();//new一个FileReader实例
+				reader.onload = function() {
+					var result = document.getElementById('result');
+
+					var resultText = this.result.match(/<{getLanguage key='.[^<{]+'}>/g);
+					resultText = resultText.join('<br/>');
+					resultText = resultText.replace(/<{getLanguage key='(.[^<{]+)'}>/g,'$1');
+
+					result.innerHTML += resultText+'<br>';
+				};
+				reader.readAsText(files[i]);
+            }
+			document.getElementById('download').onclick = function(){
+				funDownload(result.innerHTML.replace(/<br>/g,'\n'),files[0].name.split('.')[0]+'.txt')
+			}
+		}
+	}
+	var funDownload = function (content, filename) {
+		// 创建隐藏的可下载链接
+		var eleLink = document.createElement('a');
+		eleLink.download = filename;
+		eleLink.style.display = 'none';
+		// 字符内容转变成blob地址
+		var blob = new Blob([content]);
+		eleLink.href = URL.createObjectURL(blob);
+		// 触发点击
+		document.body.appendChild(eleLink);
+		eleLink.click();
+		// 然后移除
+		document.body.removeChild(eleLink);
+	};
+
+</script>
+</body>
+</html>
